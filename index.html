@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>जन सेवा केंद्र | डिजिटल सेवाएँ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ---------------- GLOBAL & VISIBILITY ---------------- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: #f5f5f5; 
+            min-height: 100vh;
+            color: #2c3e50; 
+            overflow-x: hidden;
+        }
+        
+        /* ---------------- HERO (No Change) ---------------- */
+        .hero-section {
+            text-align: center;
+            margin: 40px auto;
+            padding: 40px 20px;
+            border-radius: 15px;
+            color: #fff;
+            max-width: 800px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: -20px; left: -20px;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            background: linear-gradient(45deg,#ff6e40,#ee5253,#feca57,#1dd1a1);
+            background-size: 400% 400%;
+            animation: gradientShift 10s infinite;
+            z-index: -1;
+        }
+        @keyframes gradientShift {
+            0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}
+        }
+
+        .animated-heading {
+            font-size: 3.5em; 
+            font-weight: 900;
+            animation: pulseHero 1.5s infinite alternate; 
+            margin-bottom: 5px; 
+        }
+        @keyframes pulseHero {0%{transform:scale(1)}100%{transform:scale(1.05)}}
+        
+        .slogan {
+            font-size: 1.2em; 
+            font-weight: 400;
+            margin-top: 0;
+            color: #f7f7f7; 
+            opacity: 0.9;
+        }
+
+        /* ---------------- SERVICES (No Change) ---------------- */
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+            gap: 20px;
+            padding: 20px;
+            transition: filter 0.3s ease;
+        }
+        .service-card {
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 170px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .service-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .service-icon { font-size: 35px; margin-bottom: 10px; color: #3498db; }
+        .service-title { font-size: 20px; font-weight: 700; color: #2c3e50; }
+        .service-desc { font-size: 14px; color: #34495e; }
+        .service-card.active{
+            transform: scale(1.15) !important; 
+            z-index: 20000 !important;
+            border: 4px solid #e74c3c !important;
+            box-shadow: 0 0 40px rgba(231, 76, 60, 0.7);
+            background: white !important;
+        }
+        .services-container.blur .service-card:not(.active) {
+            filter: blur(4px) brightness(0.7);
+            pointer-events: none;
+        }
+        .highlight-btn {
+            margin-top: 12px;
+            padding: 8px 14px;
+            background: #25D366;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .close-highlight {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            background: #e74c3c;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 700;
+            z-index: 20001;
+        }
+        
+        /* ---------------- FLOAT BUTTONS (Mobile Fixes) ---------------- */
+        .fixed-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+        }
+
+        #mobile-toggle-button {
+            display: none; 
+            background: #3498db; 
+            color: #fff;
+            padding: 15px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,.4);
+        }
+
+        .action-buttons-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .action-button {
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,.3);
+            transition: transform 0.3s ease;
+        }
+        
+        #youtube-icon { background: #FF0000 !important; }
+        #chatbot-icon { background:#27ae60; }
+        #whatsapp-icon { background:#25D366; animation: pulse 2s infinite; }
+        
+        @keyframes pulse {0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);} }
+
+        /* ---------------- CHATBOT WINDOW ---------------- */
+        #chatbot-window {
+            width: 300px;
+            height: 420px;
+            background: #fff;
+            border-radius: 12px;
+            position: fixed; 
+            bottom: 180px; 
+            right: 20px; 
+            display: none; 
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow:0 8px 25px rgba(0,0,0,.3);
+            z-index: 99990;
+        }
+        .chat-header{
+            background:#27ae60;
+            color:#fff;
+            padding:10px;
+            display:flex;
+            justify-content:space-between;
+            align-items: center;
+            position: sticky; 
+            top: 0; 
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+        #chat-messages{
+            flex:1;
+            padding:10px;
+            overflow-y:auto;
+            background:#f7f7f7;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* ====================================
+           *** UPDATED: CHAT BUBBLES STYLE ***
+           ==================================== */
+        .chat-message {
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            max-width: 85%;
+            word-wrap: break-word;
+            line-height: 1.4;
+            font-size: 14px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* **यूजर का मैसेज - हरा बबल, सफेद टेक्स्ट** */
+        .user-message {
+            background-color: #4CAF50; /* हरा रंग */
+            color: white; /* टेक्स्ट का रंग सफेद */
+            border-radius: 15px 15px 5px 15px; /* दाएं कोने पर थोड़ा कम गोल */
+            align-self: flex-end; /* दाईं ओर */
+            margin-left: auto;
+        }
+
+        /* **चैटबॉट का मैसेज - नीला बबल, सफेद टेक्स्ट** */
+        .bot-message {
+            background-color: #2196F3; /* नीला रंग */
+            color: white; /* टेक्स्ट का रंग सफेद */
+            border-radius: 15px 15px 15px 5px; /* बाएं कोने पर थोड़ा कम गोल */
+            align-self: flex-start; /* बाईं ओर */
+            margin-right: auto;
+        }
+        
+        /* ====================================
+           *** UPDATED: CHAT INPUT CONTAINER ***
+           ==================================== */
+        #chat-input-container {
+            padding: 10px;
+            background-color: #FFEB3B; /* हल्का पीला रंग */
+            border-top: 1px solid #ccc;
+            display: flex;
+        }
+
+        #chat-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 2px solid #FF9800; /* नारंगी बॉर्डर */
+            border-radius: 25px; /* गोलाकार इनपुट */
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        #send-button {
+            background-color: #F44336; /* लाल रंग */
+            color: white;
+            border: none;
+            border-radius: 25px; /* गोलाकार बटन */
+            padding: 10px 15px;
+            margin-left: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        #send-button:hover {
+            background-color: #D32F2F; 
+        }
+
+        /* ---------------- MOBILE FIXES (@media) ---------------- */
+        @media (max-width: 600px) {
+            /* Fix 1: Floating Buttons Toggle */
+            .fixed-buttons {
+                bottom: 10px; 
+                right: 10px; 
+                align-items: flex-end; 
+            }
+            #mobile-toggle-button {
+                display: flex; 
+                order: 10; 
+                margin-top: 10px; 
+            }
+            .action-buttons-group {
+                display: none; 
+            }
+            .action-buttons-group.active {
+                display: flex; 
+            }
+
+            /* Fix 2: Chatbot Full Screen-ish Alignment */
+            #chatbot-window {
+                width: calc(100% - 20px); 
+                height: 70vh; 
+                bottom: 80px; 
+                right: 10px;
+                left: 10px; 
+                margin: 0;
+                border-radius: 12px; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="hero-section">
+    <h1 class="animated-heading">जन सेवा केंद्र</h1>
+    <p class="slogan">सभी ऑनलाइन सेवाएं एक जगह</p>
+</header>
+
+<main class="services-container">
+    <div class="service-card" style="background:#ffcccc"><i class="fas fa-print service-icon"></i><h3 class="service-title">रंगीन प्रिंट</h3><p class="service-desc">उच्च गुणवत्ता वाली रंगीन छपाई।</p></div>
+    <div class="service-card" style="background:#ccffcc"><i class="fas fa-envelope service-icon"></i><h3 class="service-title">स्कैनर / ईमेल लेखन</h3><p class="service-desc">दस्तावेज़ स्कैनिंग और ईमेल भेजना।</p></div>
+    <div class="service-card" style="background:#ffccff"><i class="fas fa-home service-icon"></i><h3 class="service-title">निवास प्रमाण पत्र</h3><p class="service-desc">निवास प्रमाण पत्र सेवाएँ।</p></div>
+    <div class="service-card" style="background:#ccffff"><i class="fas fa-shopping-basket service-icon"></i><h3 class="service-title">राशन कार्ड</h3><p class="service-desc">राशन कार्ड फ़ॉर्म और अपडेट।</p></div>
+    <div class="service-card" style="background:#ff9999"><i class="fas fa-road service-icon"></i><h3 class="service-title">चालान भुगतान</h3><p class="service-desc">ऑनलाइन चालान जमा करना।</p></div>
+    <div class="service-card" style="background:#99ff99"><i class="fas fa-laptop-code service-icon"></i><h3 class="service-title">सॉफ्टवेयर इंस्टॉलेशन</h3><p class="service-desc">विंडोज और सॉफ्टवेयर सेटअप।</p></div>
+    <div class="service-card" style="background:#ccccff"><i class="fas fa-copy service-icon"></i><h3 class="service-title">प्रिंट / फोटोकॉपी</h3><p class="service-desc">ज़ेरॉक्स और छपाई सेवाएँ।</p></div>
+    <div class="service-card" style="background:#fffccc"><i class="fas fa-address-card service-icon"></i><h3 class="service-title">पैन कार्ड</h3><p class="service-desc">नया पैन कार्ड और सुधार।</p></div>
+    <div class="service-card" style="background:#ff99ff"><i class="fas fa-train service-icon"></i><h3 class="service-title">रेल टिकट</h3><p class="service-desc">रेलवे टिकट बुकिंग।</p></div>
+    <div class="service-card" style="background:#99ffff"><i class="fas fa-file-invoice-dollar service-icon"></i><h3 class="service-title">आयकर रिटर्न (ITR)</h3><p class="service-desc">इनकम टैक्स रिटर्न दाखिल करना।</p></div>
+    <div class="service-card" style="background:#ff9966"><i class="fas fa-wallet service-icon"></i><h3 class="service-title">नकद निकासी (AEPS)</h3><p class="service-desc">आधार सक्षम भुगतान प्रणाली।</p></div>
+    <div class="service-card" style="background:#66ff99"><i class="fas fa-database service-icon"></i><h3 class="service-title">डेटा बैकअप</h3><p class="service-desc">सुरक्षित कंप्यूटर डेटा बैकअप।</p></div>
+    <div class="service-card" style="background:#9999ff"><i class="fas fa-camera-retro service-icon"></i><h3 class="service-title">पासपोर्ट फोटो</h3><p class="service-desc">पासपोर्ट आकार की तस्वीरें।</p></div>
+    <div class="service-card" style="background:#ffff99"><i class="fas fa-id-card service-icon"></i><h3 class="service-title">आधार सुधार</h3><p class="service-desc">आधार कार्ड अपडेट और सुधार।</p></div>
+    <div class="service-card" style="background:#ff66cc"><i class="fas fa-car-side service-icon"></i><h3 class="service-title">ड्राइविंग लाइसेंस</h3><p class="service-desc">ड्राइविंग लाइसेंस सेवाएँ।</p></div>
+    <div class="service-card" style="background:#ccff66"><i class="fas fa-plane service-icon"></i><h3 class="service-title">हवाई टिकट</h3><p class="service-desc">एयर टिकट बुकिंग।</p></div>
+    <div class="service-card" style="background:#66cc66"><i class="fas fa-exchange-alt service-icon"></i><h3 class="service-title">मनी ट्रांसफर</h3><p class="service-desc">घरेलू मनी ट्रांसफर सेवाएँ।</p></div>
+    <div class="service-card" style="background:#ff6666"><i class="fas fa-mobile-alt service-icon"></i><h3 class="service-title">नया मोबाइल सिम</h3><p class="service-desc">सिम कार्ड सक्रियण।</p></div>
+    <div class="service-card" style="background:#ffcc66"><i class="fas fa-layer-group service-icon"></i><h3 class="service-title">लेमिनेशन</h3><p class="service-desc">दस्तावेज़ लेमिनेशन सेवाएँ।</p></div>
+    <div class="service-card" style="background:#66ffcc"><i class="fas fa-baby service-icon"></i><h3 class="service-title">जन्म प्रमाण पत्र</h3><p class="service-desc">जन्म प्रमाण पत्र सेवाएँ।</p></div>
+    <div class="service-card" style="background:#cc66ff"><i class="fas fa-graduation-cap service-icon"></i><h3 class="service-title">लर्निंग लाइसेंस</h3><p class="service-desc">लर्निंग लाइसेंस आवेदन।</p></div>
+    <div class="service-card" style="background:#ff6699"><i class="fas fa-bolt service-icon"></i><h3 class="service-title">बिजली बिल/मीटर</h3><p class="service-desc">बिल भुगतान और मीटर आवेदन।</p></div>
+    <div class="service-card" style="background:#99ffcc"><i class="fas fa-exchange-alt service-icon"></i><h3 class="service-title">MNP (नंबर पोर्ट)</h3><p class="service-desc">मोबाइल नंबर पोर्टेबिलिटी।</p></div>
+    <div class="service-card" style="background:#cc99ff"><i class="fas fa-headset service-icon"></i><h3 class="service-title">BPO नौकरी संपर्क</h3><p class="service-desc">BPO नौकरी आवेदन सहायता।</p></div>
+    <div class="service-card" style="background:#ff99cc"><i class="fas fa-file-alt service-icon"></i><h3 class="service-title">फॉर्म भरना</h3><p class="service-desc">ऑनलाइन आवेदन फॉर्म भरना।</p></div>
+    <div class="service-card" style="background:#99ccff"><i class="fas fa-users service-icon"></i><h3 class="service-title">जाति प्रमाण पत्र</h3><p class="service-desc">जाति प्रमाण पत्र सेवाएँ।</p></div>
+    <div class="service-card" style="background:#ccff99"><i class="fas fa-passport service-icon"></i><h3 class="service-title">पासपोर्ट सेवा</h3><p class="service-desc">पासपोर्ट आवेदन सेवाएँ।</p></div>
+    <div class="service-card" style="background:#ffcc00"><i class="fas fa-tint service-icon"></i><h3 class="service-title">पानी बिल/कनेक्शन</h3><p class="service-desc">बिल भुगतान और कनेक्शन सेवाएँ।</p></div>
+    
+    <div class="service-card" style="background:#00ccff"><i class="fas fa-credit-card service-icon"></i><h3 class="service-title">क्रेडिट कार्ड नकद</h3><p class="service-desc">अपने क्रेडिट कार्ड से पैसे अकाउंट में ट्रांसफर करवाएं, मात्र **3.5% की कमीशन** पर हाथों हाथ।</p></div>
+    
+    <div class="service-card" style="background:#6699ff"><i class="fas fa-tools service-icon"></i><h3 class="service-title">कंप्यूटर रिपेयर</h3><p class="service-desc">कंप्यूटर और लैपटॉप मरम्मत।</p></div>
+    <div class="service-card" style="background:#6666ff"><i class="fas fa-id-badge service-icon"></i><h3 class="service-title">वोटर आईडी</h3><p class="service-desc">वोटर आईडी आवेदन/अपडेट।</p></div>
+    <div class="service-card" style="background:#ffcc99"><i class="fas fa-phone-square-alt service-icon"></i><h3 class="service-title">मोबाइल रिचार्ज/बिल</h3><p class="service-desc">मोबाइल रिचार्ज और बिल भुगतान।</p></div>
+    <div class="service-card" style="background:#66ff99"><i class="fas fa-cross service-icon"></i><h3 class="service-title">मृत्यु प्रमाण पत्र</h3><p class="service-desc">मृत्यु प्रमाण पत्र सेवाएँ।</p></div>
+    <div class="service-card" style="background:#cc00ff"><i class="fas fa-money-check service-icon"></i><h3 class="service-title">बिजली बिलिंग</h3><p class="service-desc">बिजली बिल भुगतान।</p></div>
+    
+    <div class="service-card" style="background:#f79d9d"><i class="fas fa-plug service-icon"></i><h3 class="service-title">बिजली फिटिंग</h3><p class="service-desc">बिजली की फिटिंग करवाने के लिए संपर्क करें: काम और किफ़ायती दाम पर।</p></div>
+</main>
+
+<div class="fixed-buttons">
+    <div class="action-buttons-group">
+        <a id="youtube-icon" class="action-button" href="https://www.youtube.com/@All4U91" target="_blank"><i class="fab fa-youtube" style="margin-right:8px"></i>YouTube</a>
+        <div id="chatbot-icon" class="action-button">🤖 चैटबॉट</div>
+        <a id="whatsapp-icon" class="action-button" href="https://wa.me/9136666000" target="_blank"><i class="fab fa-whatsapp" style="margin-right:8px"></i>WhatsApp</a>
+    </div>
+    <div id="mobile-toggle-button" class="action-button"><i class="fas fa-comments"></i></div>
+</div>
+
+<div id="chatbot-window">
+    <div class="chat-header">
+        <span>डिजिटल सहायक</span>
+        <span id="closeChat" style="cursor:pointer;font-weight:800; font-size: 1.2em;">X</span>
+    </div>
+    <div id="chat-messages"></div>
+    <div id="chat-input-container">
+        <input id="chat-input" placeholder="यहां लिखें..." />
+        <button id="send-button">भेजें</button>
+    </div>
+</div>
+
+<script>
+    const chatIcon = document.getElementById("chatbot-icon");
+    const chatWindow = document.getElementById("chatbot-window");
+    const chatMsg = document.getElementById("chat-messages");
+    const input = document.getElementById("chat-input");
+    const sendButton = document.getElementById("send-button");
+    const closeChat = document.getElementById("closeChat");
+    const shopAddress = "पता: नियर बजरंग चौक, बापोला रोड, जय विहार, दिल्ली 110043";
+    const shopWhatsapp = "9136666000";
+    
+    const toggleButton = document.getElementById("mobile-toggle-button");
+    const buttonsGroup = document.querySelector(".action-buttons-group");
+    
+    function isMobileView() {
+        return window.innerWidth <= 600;
+    }
+
+    // Toggle function for floating buttons
+    toggleButton.onclick = () => {
+        buttonsGroup.classList.toggle("active");
+        
+        if (!buttonsGroup.classList.contains("active")) {
+             chatWindow.style.display = "none";
+        }
+        
+        const icon = toggleButton.querySelector('i');
+        if (buttonsGroup.classList.contains("active")) {
+            icon.className = 'fas fa-times'; 
+        } else {
+            icon.className = 'fas fa-comments'; 
+        }
+    };
+
+    // --- CHATBOT LOGIC ---
+    chatIcon.onclick = () => {
+        if (chatWindow.style.display === "flex") {
+            chatWindow.style.display = "none";
+        } else {
+            chatWindow.style.display = "flex";
+            if (isMobileView()) {
+                toggleButton.style.display = 'none'; 
+            }
+            if (chatMsg.children.length === 0) {
+                setTimeout(() => {
+                    addMessage("नमस्ते! 👋 मैं आपका डिजिटल सहायक हूँ। मैं आपकी किस सेवा में मदद कर सकता हूँ?", "bot");
+                }, 300);
+            }
+        }
+        input.focus();
+    };
+    
+    closeChat.onclick = () => {
+        chatWindow.style.display = "none";
+        if (isMobileView()) {
+             toggleButton.style.display = 'flex'; 
+        }
+    };
+    
+    function addMessage(msg, type) {
+        let div = document.createElement("div");
+        // यहाँ 'type' को सही क्लास नाम ('user-message' या 'bot-message') के लिए जोड़ा गया है
+        div.className = `chat-message ${type}-message`; 
+        div.textContent = msg;
+        chatMsg.appendChild(div);
+        chatMsg.scrollTop = chatMsg.scrollHeight;
+    }
+
+    function getBotResponse(message) {
+        const lowerCaseMsg = message.toLowerCase();
+        
+        const addressKeywords = ["पता", "एड्रेस", "address", "shop location", "kahan"];
+        const youtubeKeywords = ["youtube", "यूट्यूब", "channel"];
+        const greetingKeywords = ["नमस्ते", "हेलो", "hi", "hello"];
+        
+        let isAddressQuery = addressKeywords.some(keyword => lowerCaseMsg.includes(keyword));
+        let isYoutubeQuery = youtubeKeywords.some(keyword => lowerCaseMsg.includes(keyword));
+        let isGreeting = greetingKeywords.some(keyword => lowerCaseMsg.includes(keyword));
+
+        if (isAddressQuery) {
+            return `हमारा पता है: ${shopAddress}`;
+        } else if (isYoutubeQuery) {
+            return "हमारा YouTube चैनल देखने के लिए यहां क्लिक करें: https://www.youtube.com/@All4U91";
+        } else if (isGreeting) {
+            return "नमस्ते! कृपया बताएं कि आप कौन सी सेवा लेना चाहते हैं? (जैसे: 'पता' या 'पैन कार्ड')";
+        }
+        
+        return `आपकी सेवा के लिए धन्यवाद! हमारी किसी भी सेवा के लिए आप सीधे हमारे पते ${shopAddress} पर आएं या हमें WhatsApp (${shopWhatsapp}) पर संपर्क करें।`;
+    }
+
+    function processUserInput() {
+        if (input.value.trim() !== "") {
+            let userText = input.value.trim();
+            addMessage(userText, "user"); // 'user' भेजा गया
+            input.value = "";
+
+            setTimeout(() => {
+                const botReply = getBotResponse(userText);
+                addMessage(botReply, "bot"); // 'bot' भेजा गया
+            }, 600); 
+        }
+    }
+
+    input.addEventListener("keypress", e => {
+        if (e.key === "Enter") {
+            processUserInput();
+        }
+    });
+
+    sendButton.addEventListener("click", processUserInput);
+
+
+    // --- SERVICE CARD HIGHLIGHT + BLUR LOGIC (No Change) ---
+    const cards = document.querySelectorAll('.service-card');
+    const container = document.querySelector('.services-container');
+
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            cards.forEach(c => {
+                c.classList.remove('active');
+                let oldClose = c.querySelector('.close-highlight');
+                let oldBtn = c.querySelector('.highlight-btn');
+                if (oldClose) oldClose.remove();
+                if (oldBtn) oldBtn.remove();
+            });
+
+            card.classList.add('active');
+            container.classList.add('blur');
+
+            let btn = document.createElement('a');
+            btn.href = 'https://wa.me/9136666000';
+            btn.className = 'highlight-btn';
+            btn.textContent = 'WhatsApp पर संपर्क करें';
+            btn.target = '_blank';
+            card.appendChild(btn);
+
+            let closeBtn = document.createElement('div');
+            closeBtn.className = 'close-highlight';
+            closeBtn.textContent = 'X';
+            card.appendChild(closeBtn);
+
+            closeBtn.onclick = (e) => {
+                e.stopPropagation();
+                card.classList.remove('active');
+                container.classList.remove('blur');
+                closeBtn.remove();
+                btn.remove();
+            };
+        });
+    });
+
+</script>
+
+</body>
+</html>
